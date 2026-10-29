@@ -18,6 +18,10 @@ public class ScarletLibrary extends SharedLibrary.Default {
 
     static {
         Library.initialize();
+        // Resolve this JNI method before a failed load sets the loader error.
+        // Lazy JNI symbol lookup otherwise overwrites that error with the
+        // lookup for ndlerror itself.
+        ndlerror();
     }
 
     public ScarletLibrary(String name) {

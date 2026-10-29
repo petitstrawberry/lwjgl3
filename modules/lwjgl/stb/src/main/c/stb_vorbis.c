@@ -584,6 +584,10 @@ enum STBVorbisError
    #include <assert.h>
    #include <math.h>
 
+   // Native Scarlet uses the compiler stack allocator, with no host libc ABI.
+   #if defined(LWJGL_SCARLET) && !defined(alloca)
+      #define alloca __builtin_alloca
+   #endif
    // find definition of alloca if it's not in stdlib.h:
    #if defined(_MSC_VER) || defined(__MINGW32__)
       #include <malloc.h>

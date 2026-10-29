@@ -620,7 +620,10 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
    #define stbi_inline __forceinline
 #endif
 
-#ifndef STBI_NO_THREAD_LOCALS
+#if defined(LWJGL_SCARLET)
+   #include "stb_thread.h"
+   #define STBI_THREAD_LOCAL
+#elif !defined(STBI_NO_THREAD_LOCALS)
    #if defined(__cplusplus) &&  __cplusplus >= 201103L
       #define STBI_THREAD_LOCAL       thread_local
    #elif defined(__GNUC__) && __GNUC__ < 5
@@ -963,11 +966,13 @@ static int      stbi__pnm_info(stbi__context *s, int *x, int *y, int *comp);
 static int      stbi__pnm_is16(stbi__context *s);
 #endif
 
+#ifndef LWJGL_SCARLET
 static
 #ifdef STBI_THREAD_LOCAL
 STBI_THREAD_LOCAL
 #endif
 const char *stbi__g_failure_reason;
+#endif
 
 STBIDEF const char *stbi_failure_reason(void)
 {
@@ -1121,7 +1126,9 @@ STBIDEF void stbi_set_flip_vertically_on_load(int flag_true_if_should_flip)
 #ifndef STBI_THREAD_LOCAL
 #define stbi__vertically_flip_on_load  stbi__vertically_flip_on_load_global
 #else
+#ifndef LWJGL_SCARLET
 static STBI_THREAD_LOCAL int stbi__vertically_flip_on_load_local, stbi__vertically_flip_on_load_set;
+#endif
 
 STBIDEF void stbi_set_flip_vertically_on_load_thread(int flag_true_if_should_flip)
 {
@@ -5007,8 +5014,10 @@ STBIDEF void stbi_convert_iphone_png_to_rgb(int flag_true_if_should_convert)
 #define stbi__unpremultiply_on_load  stbi__unpremultiply_on_load_global
 #define stbi__de_iphone_flag  stbi__de_iphone_flag_global
 #else
+#ifndef LWJGL_SCARLET
 static STBI_THREAD_LOCAL int stbi__unpremultiply_on_load_local, stbi__unpremultiply_on_load_set;
 static STBI_THREAD_LOCAL int stbi__de_iphone_flag_local, stbi__de_iphone_flag_set;
+#endif
 
 STBIDEF void stbi_set_unpremultiply_on_load_thread(int flag_true_if_should_unpremultiply)
 {

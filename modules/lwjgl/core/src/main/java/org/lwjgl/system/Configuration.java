@@ -686,6 +686,8 @@ public class Configuration<T> {
     /** Returns the default OpenGL library names for the current platform. */
     public static String[] OPENGL_LIBRARY_NAME_DEFAULTS() {
         switch (Platform.get()) {
+            case SCARLET:
+                return new String[] {"libOpenGL.so.0", "libOpenGL.so"};
             case FREEBSD:
             case LINUX:
                 return new String[] {"libGLX.so.0", "libGL.so.1", "libGL.so"};
