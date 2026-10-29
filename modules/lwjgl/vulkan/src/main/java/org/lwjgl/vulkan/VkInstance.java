@@ -42,13 +42,14 @@ public class VkInstance extends DispatchableHandleInstance {
                 apiLogMissing("VK instance", functionName);
             }
             return address;
-        }, apiVersion, VK.getEnabledExtensionSet(apiVersion, ci.ppEnabledExtensionNames()), getAvailableDeviceExtensions(handle));
+        }, apiVersion, VK.getEnabledExtensionSet(apiVersion, ci.ppEnabledExtensionNames()), getAvailableDeviceExtensions(handle, apiVersion));
     }
 
     // Will be used to identify logical device extensions that extend physical device functionality.
     // Such functions can be called on a physical device, before a logical device has been created.
-    private static Set<String> getAvailableDeviceExtensions(long instance) {
-        HashSet<String> extensions = new HashSet<>();
+    private static Set<String> getAvailableDeviceExtensions(long instance, int apiVersion) {
+        // Device extensions can add physical-device commands conditional on the core version.
+        HashSet<String> extensions = new HashSet<>(VK.getEnabledExtensionSet(apiVersion, null));
 
         out:
         try (MemoryStack stack = stackPush()) {
