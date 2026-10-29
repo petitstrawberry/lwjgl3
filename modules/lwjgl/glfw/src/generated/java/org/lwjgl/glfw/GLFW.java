@@ -482,7 +482,8 @@ public class GLFW {
         GLFW_PLATFORM_COCOA   = 0x60002,
         GLFW_PLATFORM_WAYLAND = 0x60003,
         GLFW_PLATFORM_X11     = 0x60004,
-        GLFW_PLATFORM_NULL    = 0x60005;
+        GLFW_PLATFORM_NULL    = 0x60005,
+        GLFW_PLATFORM_SCARLET = 0x530001;
 
     public static final int GLFW_DONT_CARE = -1;
 

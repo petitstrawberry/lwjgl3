@@ -360,7 +360,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "PLATFORM_COCOA"..0x00060002,
         "PLATFORM_WAYLAND"..0x00060003,
         "PLATFORM_X11"..0x00060004,
-        "PLATFORM_NULL"..0x00060005
+        "PLATFORM_NULL"..0x00060005,
+        "PLATFORM_SCARLET"..0x00530001
     )
 
     IntConstant(

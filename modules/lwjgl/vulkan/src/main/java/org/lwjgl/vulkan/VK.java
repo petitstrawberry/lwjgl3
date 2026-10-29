@@ -68,6 +68,7 @@ public final class VK {
         switch (Platform.get()) {
             case FREEBSD:
             case LINUX:
+            case SCARLET:
                 VK = Library.loadNative(VK.class, "org.lwjgl.vulkan", Configuration.VULKAN_LIBRARY_NAME, "libvulkan.so.1");
                 break;
             case WINDOWS:
