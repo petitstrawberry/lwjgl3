@@ -9,6 +9,7 @@ import org.lwjgl.*;
 import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.libffi.*;
 import org.lwjgl.system.linux.*;
+import org.lwjgl.system.scarlet.*;
 import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
 
@@ -128,6 +129,8 @@ public final class APIUtil {
                 return new FreeBSDLibrary(name);
             case LINUX:
                 return new LinuxLibrary(name);
+            case SCARLET:
+                return new ScarletLibrary(name);
             case MACOSX:
                 return MacOSXLibrary.create(name);
             case WINDOWS:

@@ -6,6 +6,8 @@
 
 #if defined(LWJGL_WINDOWS)
     #include "WindowsLWJGL.h"
+#elif defined(LWJGL_SCARLET)
+    #include <unistd.h>
 #elif defined(LWJGL_LINUX)
     #include <unistd.h>
     #if !defined(_SC_PAGESIZE)
@@ -44,7 +46,7 @@
 static int64_t queryPageSize(void) {
 #if defined(LWJGL_MACOS) || defined(LWJGL_FREEBSD)
     return getpagesize();
-#elif defined(LWJGL_LINUX)
+#elif defined(LWJGL_LINUX) || defined(LWJGL_SCARLET)
     return sysconf(_SC_PAGESIZE);
 #elif defined(LWJGL_WINDOWS)
     SYSTEM_INFO systemInfo;

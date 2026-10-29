@@ -159,7 +159,18 @@ static int dl_strlen_strcpy(char* dst, const char* src, int dstSize)
  * RTLD_DI_LINKMAP and RTLD_SELF, which are #defines used by dlinfo() on most
  * supported targets, or specifically check the OS (e.g. dlinfo() is originally
  * from Solaris) */
-#if ((defined(RTLD_DI_LINKMAP) && defined(RTLD_SELF)) || defined(OS_SunOS)) && !defined(DL_USE_GLIBC_ITER_PHDR)
+#if defined(LWJGL_SCARLET)
+
+/* Scarlet exposes opaque handles without a path-query API. Zero means unknown
+ * to SharedLibraryUtil; do not interpret the handle as an ELF link_map. */
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_SharedLibraryUtil_getLibraryPath(JNIEnv *env, jclass clazz, jlong pLibAddress, jlong sOutAddress, jint bufSize) {
+    UNUSED_PARAMS(env, clazz)
+    UNUSED_PARAMS(pLibAddress, sOutAddress)
+    UNUSED_PARAM(bufSize)
+    return 0;
+}
+
+#elif ((defined(RTLD_DI_LINKMAP) && defined(RTLD_SELF)) || defined(OS_SunOS)) && !defined(DL_USE_GLIBC_ITER_PHDR)
 
 #include <link.h>
 

@@ -38,6 +38,18 @@ public enum Platform {
             return System.mapLibraryName(name);
         }
     },
+    SCARLET("Scarlet", "scarlet") {
+        private final Pattern SO = Pattern.compile("(?:^|/)lib\\w+[.]so(?:[.]\\d+)*$");
+
+        @Override
+        String mapLibraryName(String name) {
+            if (SO.matcher(name).find()) {
+                return name;
+            }
+
+            return System.mapLibraryName(name);
+        }
+    },
     // TODO: Rename to MACOS in LWJGL 4
     MACOSX("macOS", "macos") {
         private final Pattern DYLIB = Pattern.compile("(?:^|/)lib\\w+(?:[.]\\d+)*[.]dylib$");
@@ -136,6 +148,8 @@ public enum Platform {
         String osName = System.getProperty("os.name");
         if (osName.startsWith("Windows")) {
             current = WINDOWS;
+        } else if (osName.startsWith("Scarlet")) {
+            current = SCARLET;
         } else if (osName.startsWith("FreeBSD")) {
             current = FREEBSD;
         } else if (osName.startsWith("Linux") || osName.startsWith("SunOS") || osName.startsWith("Unix")) {
