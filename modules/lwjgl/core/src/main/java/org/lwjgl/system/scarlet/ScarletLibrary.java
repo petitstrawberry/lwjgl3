@@ -9,6 +9,7 @@ import org.lwjgl.system.*;
 
 import java.nio.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
@@ -40,6 +41,9 @@ public class ScarletLibrary extends SharedLibrary.Default {
 
     @Override
     public long getFunctionAddress(ByteBuffer functionName) {
+        if (CHECKS) {
+            checkNT1(functionName);
+        }
         return ndlsym(address(), memAddress(functionName));
     }
 
